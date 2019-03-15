@@ -81,9 +81,15 @@ public extension Shader {
     
     public static let circle: Shader =
     """
-    float circle(in vec2 _st, in float _radius) {
-      vec2 dist = _st-vec2(0.5);
-      return 1.-smoothstep(_radius-(_radius*0.01), _radius+(_radius*0.01), dot(dist,dist)*4.0);
+    float circle(float2 st, float2 pos, float radius, float edge) {
+      st = pos-st;
+      float r = length(st) * 4.0;
+      float f = radius;
+      return 1.0-smoothstep(f-edge, f+edge, r);
+    }
+
+    float circleb(float2 st, float2 pos, float radius, float edge, float w) {
+      return circle(st,pos,radius,edge) - circle(st,pos,radius-w,edge);
     }
     """
     
@@ -91,16 +97,16 @@ public extension Shader {
     
     public static let defaultFragementShader: Shader =
     """
-    vec2 st = _surface.position.xy / u_boundingBox[1].xy;
-    float brightness = 0.9;
-    
-    vec3 color = vec3(
-    circle(st, snoise(st + u_time*0.15) *0.1 ) * brightness,
-    circle(st, -snoise(st + u_time*0.025) *0.1 ) * brightness,
-    circle(st, snoise(st + -1.*u_time*0.3) *0.15 ) * brightness);
-    
-    _output.color = vec4(color, 1.0);
+    vec2 coords = _surface.diffuseTexcoord;
+    vec2 bounds = u_boundingBox[1].xy;
+    float ratio = bounds.x / bounds.y;
+    coords.x *= ratio;
+    coords.x += (1.0 - ratio) * 0.5;
 
+    vec2 pos = vec2(cos(u_time), sin(u_time));
+    vec3 color = vec3(circle(coords + pos * 0.2, 0.5, 0, 0.6));
+
+    _output.color = vec4(color, 1.0);
     """
     
     public static var fragmentShader: Shader {
