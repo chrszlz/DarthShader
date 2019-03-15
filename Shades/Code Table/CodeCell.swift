@@ -45,9 +45,10 @@ public class CodeCell: UITableViewCell {
     private func sharedInit() {
         backgroundColor = .clear
         
-        textView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
+        textView.backgroundColor = .clear
         textView.contentTextView.isScrollEnabled = false
         textView.theme = DefaultSourceCodeTheme()
+        textView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom:  8.0, right: 0.0);
         textView.delegate = self
         
         addSubview(textView)

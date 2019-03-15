@@ -80,7 +80,7 @@ public class SectionHeaderView: UITableViewHeaderFooterView {
         titleLabel.font = UIFont(name: "Menlo-Bold", size: 18.0)
 
         containerView.addArrangedSubview(arrowLabel)
-        arrowLabel.textColor = .lightGray
+        arrowLabel.textColor = UIColor(red:0.98, green:0.71, blue:0.07, alpha:1.00)
         arrowLabel.font = UIFont(name: "Menlo", size: 16.0)
         
         // Layout

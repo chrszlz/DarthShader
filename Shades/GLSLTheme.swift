@@ -26,7 +26,9 @@ public struct DefaultSourceCodeTheme: SourceCodeTheme {
     
     public let font = Font(name: "Menlo", size: 15)!
     
-    public let backgroundColor = Color(red: 31/255.0, green: 32/255, blue: 41/255, alpha: 0.6)
+    public let caretColor: Color = Color(red:0.98, green:0.71, blue:0.07, alpha:1.00)
+    
+    public let backgroundColor = Color(red: 31/255.0, green: 32/255, blue: 41/255, alpha: 0.3)
     
     public func color(for syntaxColorType: SourceCodeTokenType) -> Color {
         
