@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81259D5A2238E774002CFCDF /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81259D592238E773002CFCDF /* Haptic.swift */; };
 		8144D19222140562008DBF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144D19122140562008DBF5C /* AppDelegate.swift */; };
 		8144D19722140562008DBF5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8144D19522140562008DBF5C /* Main.storyboard */; };
 		8144D19922140564008DBF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8144D19822140564008DBF5C /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		81259D592238E773002CFCDF /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		8144D18E22140562008DBF5C /* Shades.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shades.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8144D19122140562008DBF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8144D19622140562008DBF5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				8145137C222E83BA00D799DD /* UIKit+Additions.swift */,
 				816488CF2225134A00E8939E /* UIView+Additions.swift */,
 				8145137F222E849F00D799DD /* Math+Additions.swift */,
+				81259D592238E773002CFCDF /* Haptic.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81259D5A2238E774002CFCDF /* Haptic.swift in Sources */,
 				816488D02225134A00E8939E /* UIView+Additions.swift in Sources */,
 				8144D19222140562008DBF5C /* AppDelegate.swift in Sources */,
 				81648915222A1E9E00E8939E /* InputToolbar.swift in Sources */,

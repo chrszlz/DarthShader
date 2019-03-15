@@ -142,6 +142,8 @@ extension CodeTableView: ToolbarDelegate {
 extension CodeTableView: SectionHeaderViewDelegate {
     
     public func toggleSection(_ header: SectionHeaderView, section: Int) {
+        TapticEngine.selection.feedback()
+        
         let isCollapsed = !sections[section].isCollapsed
         
         // Toggle collapse
