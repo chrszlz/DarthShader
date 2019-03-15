@@ -26,10 +26,10 @@
 		816488BC2223565C00E8939E /* CodeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816488BB2223565C00E8939E /* CodeSection.swift */; };
 		816488D02225134A00E8939E /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816488CF2225134A00E8939E /* UIView+Additions.swift */; };
 		81648915222A1E9E00E8939E /* InputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81648914222A1E9E00E8939E /* InputToolbar.swift */; };
-		819E51A6221BE6F90012798A /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E51A5221BE6F90012798A /* SavannaKit.framework */; };
-		819E51A7221BE6F90012798A /* SavannaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 819E51A5221BE6F90012798A /* SavannaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		819E51A9221BF6C10012798A /* GLSLLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E51A8221BF6C10012798A /* GLSLLexer.swift */; };
 		819E51AB221BFCE90012798A /* GLSLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E51AA221BFCE90012798A /* GLSLTheme.swift */; };
+		81AACD2C223B778200F27CCE /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E51A5221BE6F90012798A /* SavannaKit.framework */; };
+		81AACD2D223B778200F27CCE /* SavannaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 819E51A5221BE6F90012798A /* SavannaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				819E51A7221BE6F90012798A /* SavannaKit.framework in Embed Frameworks */,
+				81AACD2D223B778200F27CCE /* SavannaKit.framework in Embed Frameworks */,
 				814D87B5221BE25D00CED7A7 /* SourceEditor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				819E51A6221BE6F90012798A /* SavannaKit.framework in Frameworks */,
+				81AACD2C223B778200F27CCE /* SavannaKit.framework in Frameworks */,
 				814D87B4221BE25D00CED7A7 /* SourceEditor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
