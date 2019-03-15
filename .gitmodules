@@ -1,6 +1,3 @@
 [submodule "source-editor"]
 	path = source-editor
 	url = git@github.com:louisdh/source-editor.git
-[submodule "savannakit"]
-	path = savannakit
-	url = git@github.com:louisdh/savannakit.git
