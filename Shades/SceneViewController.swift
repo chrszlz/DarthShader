@@ -34,6 +34,13 @@ open class SceneViewController: UIViewController {
         }
     }
     
+    private lazy var tapRecognizer: UITapGestureRecognizer = {
+        let recognizer = UITapGestureRecognizer()
+        recognizer.numberOfTouchesRequired = 2
+        recognizer.addTarget(self, action: #selector(handleTap(_:)))
+        return recognizer
+    }()
+    
     /// `SCNNode`, `SCNGeometry` and shaders which control the local variable `sceneView`.
     public private(set) var sceneController: SceneController?
     
@@ -49,6 +56,8 @@ open class SceneViewController: UIViewController {
         codeTable?.delegate = self
         addChild(codeTable!)
         view.addSubview(codeTable!.view)
+        
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -69,6 +78,20 @@ open class SceneViewController: UIViewController {
         codeTable?.sections = [helpers, fragment]
         codeTable?.tableView.reloadData()
         sceneController?.fragment = codeTable?.shader
+    }
+    
+    @objc private func handleTap(_ recognizer: UITapGestureRecognizer) {
+        guard let codeView = codeTable?.view else {
+            return
+        }
+        codeView.isHidden = !codeView.isHidden
+        codeView.endEditing(true)
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        sceneView?.frame = view.bounds
     }
     
 }

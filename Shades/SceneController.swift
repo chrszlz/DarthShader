@@ -49,7 +49,11 @@ open class SceneController: SCNScene {
             guard let fragment = fragment else {
                 return
             }
-            node?.geometry?.firstMaterial?.shaderModifiers = [.fragment: fragment]
+            do {
+                node?.geometry?.firstMaterial?.shaderModifiers = [.fragment: fragment]
+            } catch {
+                print("Error: \(error)")
+            }
         }
     }
 
