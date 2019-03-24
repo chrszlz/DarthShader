@@ -8,39 +8,30 @@
 
 import UIKit
 
-public struct Snippet {
-    public var name: String
-    public var code: Shader
-    
-    init(_ name: String, code: String) {
-        self.name = name
-        self.code = code
-    }
-}
-
 public protocol CodeTableDelegate {
+    func codeTable(_ table: CodeTableView, didSelect geometry: Geometry)
     func codeTable(_ table: CodeTableView, didUpdate shader: Shader)
-    
-//    func codeTableTouchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-//    func codeTableTouchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
-//    func codeTableTouchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
-//    func codeTableTouchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
 }
 
 open class CodeTableView: UITableViewController {
     
     /// String snippets of code that will be concatened, in-order
     /// to produce the final output shader.
-//    public var snippets = [Snippet]()
-    public var sections = [CodeSection]()
+    public var sections = [Section]()
     
     public var currentTextView: UITextView?
     
     /// Complete shader of snippet set.
     public var shader: Shader {
         return sections
-            .flatMap { $0.items }   // [Snippet]
-            .map { $0.code }        // [Shader]
+            .items
+            .compactMap { item in // [Shader]
+                if case .code(let snippet) = item {
+                    return snippet.code
+                } else {
+                    return nil
+                }
+            }
             .reduce("") { $0 + $1 } // Shader
     }
     
@@ -67,6 +58,7 @@ open class CodeTableView: UITableViewController {
         
         tableView.dataSource = self
         tableView.register(reusableCell: CodeCell.self)
+        tableView.register(reusableCell: GeometryCell.self)
         tableView.register(reusableHeaderFooter: SectionHeaderView.self)
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false
@@ -90,10 +82,21 @@ extension CodeTableView {
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(reusableCell: CodeCell.self, indexPath: indexPath)
-        cell.code = sections[indexPath.section].items[indexPath.row].code
-        cell.delegate = self
-        return cell
+        let item = sections[indexPath.section].items[indexPath.row]
+        
+        switch item {
+        case .code(let snippet):
+            let cell = tableView.dequeue(reusableCell: CodeCell.self, indexPath: indexPath)
+            cell.code = snippet.code
+            cell.delegate = self
+            return cell
+            
+        case .geometry(let geometry):
+            let cell = tableView.dequeue(reusableCell: GeometryCell.self, indexPath: indexPath)
+            cell.model = geometry
+            cell.delegate = self
+            return cell
+        }
     }
     
     open override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -113,7 +116,8 @@ extension CodeTableView: CodeCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
-        sections[indexPath.section].items[indexPath.row].code = cell.textView.text
+        // This is less-than ideal
+        sections.write(cell.textView.text, to: indexPath)
         delegate?.codeTable(self, didUpdate: shader)
         
         DispatchQueue.main.async {
@@ -127,6 +131,14 @@ extension CodeTableView: CodeCellDelegate {
     public func codeCell(cell: CodeCell, willBeginEditing textView: UITextView) {
         currentTextView = textView
         textView.inputAccessoryView = toolbar
+    }
+    
+}
+
+extension CodeTableView: GeometryCellDelegate {
+    
+    func geometryControlDidSelect(geometry: Geometry) {
+        delegate?.codeTable(self, didSelect: geometry)
     }
     
 }
@@ -156,21 +168,5 @@ extension CodeTableView: SectionHeaderViewDelegate {
         tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
         tableView.endUpdates()
     }
-    
-//    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        delegate?.codeTableTouchesBegan(touches, with: event)
-//    }
-//    
-//    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        delegate?.codeTableTouchesMoved(touches, with: event)
-//    }
-//    
-//    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        delegate?.codeTableTouchesEnded(touches, with: event)
-//    }
-//    
-//    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        delegate?.codeTableTouchesCancelled(touches, with: event)
-//    }
     
 }

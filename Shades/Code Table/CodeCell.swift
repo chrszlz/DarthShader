@@ -48,7 +48,7 @@ public class CodeCell: UITableViewCell {
         textView.backgroundColor = .clear
         textView.contentTextView.isScrollEnabled = false
         textView.theme = DefaultSourceCodeTheme()
-        textView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom:  8.0, right: 0.0);
+        textView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0);
         textView.delegate = self
         
         addSubview(textView)
@@ -57,6 +57,13 @@ public class CodeCell: UITableViewCell {
         textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0).isActive = true
         textView.topAnchor.constraint(equalTo: topAnchor, constant: 10.0).isActive = true
         textView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        code = ""
+        delegate = nil
     }
 
 }

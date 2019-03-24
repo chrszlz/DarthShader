@@ -16,7 +16,7 @@ public struct DefaultSourceCodeTheme: SourceCodeTheme {
         
     }
     
-    private static var lineNumbersColor: Color {
+    public static var lineNumbersColor: Color {
         return Color(red: 100/255, green: 100/255, blue: 100/255, alpha: 1.0)
     }
     
@@ -25,6 +25,7 @@ public struct DefaultSourceCodeTheme: SourceCodeTheme {
     public let gutterStyle: GutterStyle = GutterStyle(backgroundColor: Color(red: 21/255.0, green: 22/255, blue: 31/255, alpha: 1.0), minimumWidth: 32)
     
     public let font = Font(name: "Menlo", size: 15)!
+    public let fontBold = Font(name: "Menlo-Bold", size: 15)!
     
     public let caretColor: Color = Color(red:0.98, green:0.71, blue:0.07, alpha:1.00)
     
@@ -43,8 +44,7 @@ public struct DefaultSourceCodeTheme: SourceCodeTheme {
             return Color(red: 211/255, green: 35/255, blue: 46/255, alpha: 1.0)
             
         case .identifier:
-//            return Color(red: 20/255, green: 156/255, blue: 146/255, alpha: 1.0)
-            return .red
+            return Color(red: 20/255, green: 156/255, blue: 146/255, alpha: 1.0)
             
         case .keyword:
             return Color(red: 215/255, green: 0, blue: 143/255, alpha: 1.0)

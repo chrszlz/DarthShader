@@ -63,19 +63,20 @@ open class SceneViewController: UIViewController {
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let helpers = CodeSection(name: "Utility",
-                                  items: [Snippet("modFunctions", code: .modFunctions),
-                                          Snippet("circle", code: .circle),
-                                          Snippet("snoise", code: .snoise),
-                                          Snippet("body", code: .pragmaBody)],
-                                  isCollapsed: true)
-
-        let fragment = CodeSection(name: "Fragment shader",
-                                  items: [Snippet("Fragment", code: Shader.fragmentShader)],
-                                  isCollapsed: false,
-                                  isFragment: true)
+        let helperFunctions: [Item] = [.code(Snippet("modFunctions", code: .modFunctions)),
+                                       .code(Snippet("circle", code: .circle)),
+                                       .code(Snippet("snoise", code: .snoise)),
+                                       .code(Snippet("body", code: .pragmaBody))]
         
-        codeTable?.sections = [helpers, fragment]
+        codeTable?.sections = [Section("Settings",
+                                       items: [.geometry(GeometryModel())],
+                                       isCollapsed: true),
+                               Section("Utility",
+                                       items: helperFunctions,
+                                       isCollapsed: true),
+                               Section("Fragment Shader",
+                                       items: [.code(Snippet("Fragment", code: .fragmentShader, isFragmentShader: true))],
+                                       isCollapsed: false)]
         codeTable?.tableView.reloadData()
         sceneController?.fragment = codeTable?.shader
     }
@@ -90,7 +91,7 @@ open class SceneViewController: UIViewController {
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        
         sceneView?.frame = view.bounds
     }
     
@@ -98,46 +99,26 @@ open class SceneViewController: UIViewController {
 
 extension SceneViewController: CodeTableDelegate {
     
+    public func codeTable(_ table: CodeTableView, didSelect geometry: Geometry) {
+        sceneController?.geometryType = geometry.type
+    }
+    
     public func codeTable(_ table: CodeTableView, didUpdate shader: Shader) {
         sceneController?.fragment = shader
-
-        // Fuck this is bad
-        if let updatedFragmentShader = table.sections.first(where: { $0.isFragment })?.items.first?.code {
-            Shader.fragmentShader = updatedFragmentShader
-        }
-    }
-
-    // MARK: - Gesture Handling
-
-    /*
-    
-    public func codeTableTouchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let force = touches.first?.normalizedForce, force > 0.3 else {
-            return
-        }
         
-        beganForceTouch = true
-    }
-    
-    public func codeTableTouchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let force = touches.first?.normalizedForce, force > 0.3 && beganForceTouch, let codeTable = codeTable else {
-            return
+        if let shader: Snippet = table.sections.items.compactMap({ item -> Snippet? in
+            switch item {
+            case .code(let snippet):
+                guard snippet.isFragmentShader else {
+                    fallthrough
+                }
+                return snippet
+            default:
+                return nil
+            }
+        }).first {
+            Shader.fragmentShader = shader.code
         }
-        
-        var scale = force.lerp(bounds: (0.3, 1.0), outputBounds: (0.0, 1.0))
-        if !codeTable.view.isHidden {
-            scale = 1.0 - scale
-        }
-        codeTable.view.transform = CGAffineTransform(scaleX: scale, y: scale)
     }
     
-    public func codeTableTouchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        beganForceTouch = false
-    }
-    
-    public func codeTableTouchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        beganForceTouch = false
-    }
- 
- */
 }

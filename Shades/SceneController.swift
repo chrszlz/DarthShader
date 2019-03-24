@@ -11,19 +11,41 @@ import SceneKit
 
 open class SceneController: SCNScene {
     
-    public private(set) var node: SCNNode?
+    public let node = SCNNode()
+    
+    weak public private(set) var view: SCNView?
+    
+    public var geometryType: SCNGeometry.Type? {
+        didSet {
+            guard let type = geometryType, let fragment = fragment else {
+                return
+            }
+            node.geometry = geometry(of: type)
+            updateFragmentShaderModifier(fragment)
+        }
+    }
     
     public var size: CGSize = .zero {
         didSet {
-            switch node?.geometry {
-            case let g as SCNPlane:
-                g.width = size.width
-                g.height = size.height
-
-            default:
-                assertionFailure("Unexpected geometry: \(node?.geometry.debugDescription ?? "<>")")
-            }
+//            switch node.geometry {
+//            case let g as SCNPlane:
+//                g.width = size.width
+//                g.height = size.height
+//
+//            default:
+//                assertionFailure("Unexpected geometry: \(node.geometry.debugDescription)")
+//            }
         }
+    }
+    
+    private var visibleSize: CGSize {
+        guard let view = view else {
+            return .zero
+        }
+        
+        let aspectRatio: CGFloat = view.bounds.width / view.bounds.height
+        let height: CGFloat = 2 * tan(fieldOfView / 2.0) * CGFloat(cameraNode.position.z)
+        return CGSize(width: height * aspectRatio, height: height)
     }
     
     public private(set) lazy var cameraNode: SCNNode = {
@@ -49,23 +71,18 @@ open class SceneController: SCNScene {
             guard let fragment = fragment else {
                 return
             }
-            do {
-                node?.geometry?.firstMaterial?.shaderModifiers = [.fragment: fragment]
-            } catch {
-                print("Error: \(error)")
-            }
+            updateFragmentShaderModifier(fragment)
         }
     }
 
     convenience init(view: SCNView) {
         self.init()
         
+        // Retain a weak reference of the view so we can swap geometries.
+        // This is not great.
+        self.view = view
+        
         /// Node
-        node = SCNNode()
-        guard let node = node else {
-            assertionFailure("\(String(describing: self)) Error - Failed to initialize SCNNode.")
-            return
-        }
         rootNode.addChildNode(node)
         
         /// Camera
@@ -73,20 +90,8 @@ open class SceneController: SCNScene {
         rootNode.addChildNode(cameraNode)
 
         /// Node Geometry
-        
-        // Calculate size of view given position of camera
-        let aspectRatio: CGFloat = view.bounds.width / view.bounds.height
-        let visibleHeight: CGFloat = 2 * tan(fieldOfView / 2.0) * CGFloat(cameraNode.position.z)
-        let visibleWidth: CGFloat = visibleHeight * aspectRatio
-        
-        // Create geometry of the given size and add to SCNNode
-        let geometry = SCNPlane(width: visibleWidth, height: visibleHeight)
-        size = CGSize(width: geometry.width, height: geometry.height)
-        geometry.firstMaterial?.isDoubleSided = true
-        node.geometry = geometry
-        
-        /// Shaders
-//        setupFragmentShader()
+        size = visibleSize
+        node.geometry = geometry(of: SCNPlane.self)
 
         /// View
         view.allowsCameraControl = true
@@ -94,20 +99,48 @@ open class SceneController: SCNScene {
         // Attatch self (SCNNode) to view
         view.scene = self
     }
-    
-    private func setupFragmentShader() {
-        fragment =
-        """
-        vec2 st = _surface.position.xy / u_boundingBox[1].xy;
-        float brightness = 0.9;
-        
-        vec3 color = vec3(
-        circle(st, snoise(st + u_time*0.15) *0.1 ) * brightness,
-        circle(st, -snoise(st + u_time*0.025) *0.1 ) * brightness,
-        circle(st, snoise(st + -1.*u_time*0.3) *0.15 ) * brightness);
-        
-        _output.color = vec4(color, 1.0);
-        """
+  
+    deinit {
+        self.view = nil
     }
     
+    // MARK: - Utility
+    
+    private func updateFragmentShaderModifier(_ shader: Shader) {
+        node.geometry?.firstMaterial?.shaderModifiers = [.fragment: shader]
+    }
+    
+    private func geometry<T: SCNGeometry>(of type: T.Type) -> T {
+        let minDimension = min(size.width, size.height)
+        
+        let g: SCNGeometry
+        switch type {
+        case is SCNPlane.Type:
+            g = SCNPlane(width: size.width, height: size.height)
+        
+        case is SCNBox.Type:
+            let dimension = minDimension * 0.8
+            g = SCNBox(width: dimension, height: dimension, length: dimension, chamferRadius: 0)
+        
+        case is SCNPyramid.Type:
+            let dimension = minDimension * 0.8
+            let height = 0.5 * sqrt(2) * dimension
+            g = SCNPyramid(width: dimension, height: height, length: dimension)
+            
+        case is SCNSphere.Type:
+            let radius = minDimension * 0.8 / 2.0
+            g = SCNSphere(radius: radius)
+            
+        case is SCNTorus.Type:
+            let ringRadius = minDimension * 0.8 / 2.0
+            let pipeRadius = ringRadius / 8.0
+            g = SCNTorus(ringRadius: ringRadius, pipeRadius: pipeRadius)
+            
+        default:
+            g = geometry(of: SCNPlane.self)
+        }
+        
+        g.firstMaterial?.isDoubleSided = true
+        return g as! T
+    }
 }

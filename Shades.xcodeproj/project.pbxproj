@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8111BC822244C7A50020A1B8 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111BC812244C7A50020A1B8 /* Section.swift */; };
+		8111BC862244CDA10020A1B8 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111BC852244CDA10020A1B8 /* SectionHeaderView.swift */; };
 		81259D5A2238E774002CFCDF /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81259D592238E773002CFCDF /* Haptic.swift */; };
 		8144D19222140562008DBF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8144D19122140562008DBF5C /* AppDelegate.swift */; };
 		8144D19722140562008DBF5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8144D19522140562008DBF5C /* Main.storyboard */; };
@@ -23,9 +25,9 @@
 		814D879C221BDCDE00CED7A7 /* CodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814D879B221BDCDE00CED7A7 /* CodeCell.swift */; };
 		814D87B4221BE25D00CED7A7 /* SourceEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 814D87AF221BE21600CED7A7 /* SourceEditor.framework */; };
 		814D87B5221BE25D00CED7A7 /* SourceEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 814D87AF221BE21600CED7A7 /* SourceEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		816488BC2223565C00E8939E /* CodeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816488BB2223565C00E8939E /* CodeSection.swift */; };
 		816488D02225134A00E8939E /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816488CF2225134A00E8939E /* UIView+Additions.swift */; };
 		81648915222A1E9E00E8939E /* InputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81648914222A1E9E00E8939E /* InputToolbar.swift */; };
+		81661510224766EE00F3834D /* GeometryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166150F224766EE00F3834D /* GeometryCell.swift */; };
 		819E51A9221BF6C10012798A /* GLSLLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E51A8221BF6C10012798A /* GLSLLexer.swift */; };
 		819E51AB221BFCE90012798A /* GLSLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E51AA221BFCE90012798A /* GLSLTheme.swift */; };
 		81AACD2C223B778200F27CCE /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E51A5221BE6F90012798A /* SavannaKit.framework */; };
@@ -65,6 +67,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8111BC812244C7A50020A1B8 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		8111BC852244CDA10020A1B8 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		81259D592238E773002CFCDF /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		8144D18E22140562008DBF5C /* Shades.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shades.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8144D19122140562008DBF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,9 +86,9 @@
 		814D8797221BD9F100CED7A7 /* CodeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTableView.swift; sourceTree = "<group>"; };
 		814D879B221BDCDE00CED7A7 /* CodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCell.swift; sourceTree = "<group>"; };
 		814D87AA221BE21600CED7A7 /* SourceEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SourceEditor.xcodeproj; path = "source-editor/SourceEditor.xcodeproj"; sourceTree = "<group>"; };
-		816488BB2223565C00E8939E /* CodeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSection.swift; sourceTree = "<group>"; };
 		816488CF2225134A00E8939E /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 		81648914222A1E9E00E8939E /* InputToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputToolbar.swift; sourceTree = "<group>"; };
+		8166150F224766EE00F3834D /* GeometryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryCell.swift; sourceTree = "<group>"; };
 		819E51A5221BE6F90012798A /* SavannaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SavannaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		819E51A8221BF6C10012798A /* GLSLLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLSLLexer.swift; sourceTree = "<group>"; };
 		819E51AA221BFCE90012798A /* GLSLTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLSLTheme.swift; sourceTree = "<group>"; };
@@ -167,8 +171,10 @@
 			children = (
 				814D879B221BDCDE00CED7A7 /* CodeCell.swift */,
 				814D8797221BD9F100CED7A7 /* CodeTableView.swift */,
-				816488BB2223565C00E8939E /* CodeSection.swift */,
 				81648914222A1E9E00E8939E /* InputToolbar.swift */,
+				8111BC812244C7A50020A1B8 /* Section.swift */,
+				8111BC852244CDA10020A1B8 /* SectionHeaderView.swift */,
+				8166150F224766EE00F3834D /* GeometryCell.swift */,
 			);
 			path = "Code Table";
 			sourceTree = "<group>";
@@ -269,19 +275,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8111BC822244C7A50020A1B8 /* Section.swift in Sources */,
 				81259D5A2238E774002CFCDF /* Haptic.swift in Sources */,
 				816488D02225134A00E8939E /* UIView+Additions.swift in Sources */,
 				8144D19222140562008DBF5C /* AppDelegate.swift in Sources */,
 				81648915222A1E9E00E8939E /* InputToolbar.swift in Sources */,
+				81661510224766EE00F3834D /* GeometryCell.swift in Sources */,
 				814D8798221BD9F100CED7A7 /* CodeTableView.swift in Sources */,
 				8144D1A4221405A7008DBF5C /* SceneController.swift in Sources */,
 				814D8794221B987D00CED7A7 /* SceneViewController.swift in Sources */,
 				8145137D222E83BA00D799DD /* UIKit+Additions.swift in Sources */,
 				814D879C221BDCDE00CED7A7 /* CodeCell.swift in Sources */,
+				8111BC862244CDA10020A1B8 /* SectionHeaderView.swift in Sources */,
 				819E51AB221BFCE90012798A /* GLSLTheme.swift in Sources */,
 				819E51A9221BF6C10012798A /* GLSLLexer.swift in Sources */,
 				814D8796221BD77500CED7A7 /* UITableView+Additions.swift in Sources */,
-				816488BC2223565C00E8939E /* CodeSection.swift in Sources */,
 				81451380222E849F00D799DD /* Math+Additions.swift in Sources */,
 				814D8792221B891100CED7A7 /* Bundle+Additions.swift in Sources */,
 				814D878F221B747E00CED7A7 /* Shader.swift in Sources */,

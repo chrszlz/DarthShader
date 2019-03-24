@@ -1,5 +1,5 @@
 //
-//  CodeSection.swift
+//  SectionHeaderView.swift
 //  Shades
 //
 //  Created by Chris Zelazo on 2/24/19.
@@ -8,30 +8,16 @@
 
 import UIKit
 
-public struct CodeSection {
-    public var name: String
-    public var items: [Snippet]
-    public var isCollapsed: Bool
-    public var isFragment: Bool
-    
-    init(name: String, items: [Snippet] = [], isCollapsed: Bool = false, isFragment: Bool = false) {
-        self.name = name
-        self.items = items
-        self.isCollapsed = isCollapsed
-        self.isFragment = isFragment
-    }
-}
-
 public protocol SectionHeaderViewDelegate {
     func toggleSection(_ header: SectionHeaderView, section: Int)
 }
 
 public class SectionHeaderView: UITableViewHeaderFooterView {
-
+    
     public var section: Int = 0
-
+    
     public var delegate: SectionHeaderViewDelegate?
-
+    
     public var isCollapsed: Bool = false {
         didSet {
             configure()
@@ -78,7 +64,7 @@ public class SectionHeaderView: UITableViewHeaderFooterView {
         containerView.addArrangedSubview(titleLabel)
         titleLabel.textColor = .white
         titleLabel.font = UIFont(name: "Menlo-Bold", size: 18.0)
-
+        
         containerView.addArrangedSubview(arrowLabel)
         arrowLabel.textColor = UIColor(red:0.98, green:0.71, blue:0.07, alpha:1.00)
         arrowLabel.font = UIFont(name: "Menlo", size: 16.0)
@@ -110,7 +96,7 @@ public class SectionHeaderView: UITableViewHeaderFooterView {
             arrowLabel.text = "[-]"
         }
     }
-
+    
     @objc private func handleTap(_ recognizer: UITapGestureRecognizer) {
         guard let header = recognizer.view as? SectionHeaderView else {
             return
