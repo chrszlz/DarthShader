@@ -9,7 +9,8 @@ DarthShader is a simple fragment shader playground for iOS. A live version of th
 ### Collapsable Code
 ![](https://media.giphy.com/media/26mdn8VnZXuuvwlNqB/giphy.gif)
 
-### Plane Geometry
+### Different Geometries
+![](https://media.giphy.com/media/7YCVTkNhzaWDFApolH/giphy.gif)
 ![](https://media.giphy.com/media/nbNWGfq0GP3Mj6Kj29/giphy.gif)
 
 
