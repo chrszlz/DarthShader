@@ -8,6 +8,7 @@
 
 import UIKit
 import SceneKit
+import ReplayKit
 
 /// SceneViewController
 ///
@@ -33,6 +34,9 @@ open class SceneViewController: UIViewController {
             view.addSubview(sceneView)
         }
     }
+
+    /// `SCNNode`, `SCNGeometry` and shaders which control the local variable `sceneView`.
+    public private(set) var sceneController: SceneController?
     
     private lazy var tapRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer()
@@ -41,8 +45,13 @@ open class SceneViewController: UIViewController {
         return recognizer
     }()
     
-    /// `SCNNode`, `SCNGeometry` and shaders which control the local variable `sceneView`.
-    public private(set) var sceneController: SceneController?
+    private lazy var forceRecognizer: ForceTouchGestureRecognizer = {
+        let recognizer = ForceTouchGestureRecognizer()
+        recognizer.minimumForceActivation = 0.2
+        recognizer.addTarget(self, action: #selector(handleForceTouch(_:)))
+        return recognizer
+    }()
+    
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +67,7 @@ open class SceneViewController: UIViewController {
         view.addSubview(codeTable!.view)
         
         view.addGestureRecognizer(tapRecognizer)
+        sceneView?.addGestureRecognizer(forceRecognizer)
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -66,17 +76,21 @@ open class SceneViewController: UIViewController {
         let helperFunctions: [Item] = [.code(Snippet("modFunctions", code: .modFunctions)),
                                        .code(Snippet("circle", code: .circle)),
                                        .code(Snippet("snoise", code: .snoise)),
+                                       .code(Snippet("testFunctions", code: .testFunctions)),
                                        .code(Snippet("body", code: .pragmaBody))]
         
         codeTable?.sections = [Section("Settings",
                                        items: [.geometry(GeometryModel())],
                                        isCollapsed: true),
-                               Section("Utility",
-                                       items: helperFunctions,
-                                       isCollapsed: true),
-                               Section("Fragment Shader",
-                                       items: [.code(Snippet("Fragment", code: .fragmentShader, isFragmentShader: true))],
-                                       isCollapsed: false)]
+//                               Section("Utility",
+//                                       items: helperFunctions,
+//                                       isCollapsed: true),
+//                               Section("Fragment Shader",
+//                                       items: [.code(Snippet("Fragment", code: .fragmentShader, isFragmentShader: true))],
+//                                       isCollapsed: false)]
+            Section("Fragment Shader",
+                    items: [.code(Snippet("Fragment", code: .megaTest2, isFragmentShader: true))],
+                    isCollapsed: false)]
         codeTable?.tableView.reloadData()
         sceneController?.fragment = codeTable?.shader
     }
@@ -87,6 +101,45 @@ open class SceneViewController: UIViewController {
         }
         codeView.isHidden = !codeView.isHidden
         codeView.endEditing(true)
+    }
+    
+    @objc private func handleForceTouch(_ recognizer: ForceTouchGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            TapticEngine.impact.feedback(.light)
+            
+        case .changed:
+            let scale = 1.0 - (0.04 * recognizer.force)
+            DispatchQueue.main.async {
+                self.view.transform = CGAffineTransform(scaleX: scale, y: scale)
+            }
+            
+        default:
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.15) {
+                    self.view.transform = .identity
+                }
+            }
+        }
+        
+        if recognizer.force > 0.99 {
+            // Stop the controller from tracking force
+            recognizer.state = .ended
+            
+            TapticEngine.impact.feedback(.medium)
+            
+            if Recorder.isRecording {
+                Recorder.stopRecording { [weak self] previewController, _ in
+                    guard let previewController = previewController else {
+                        return
+                    }
+                    previewController.previewControllerDelegate = self
+                    self?.present(previewController, animated: true)
+                }
+            } else {
+                Recorder.startRecording()
+            }
+        }
     }
     
     open override func viewDidLayoutSubviews() {
@@ -119,6 +172,14 @@ extension SceneViewController: CodeTableDelegate {
         }).first {
             Shader.fragmentShader = shader.code
         }
+    }
+    
+}
+
+extension SceneViewController: RPPreviewViewControllerDelegate {
+    
+    public func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+        previewController.dismiss(animated: true)
     }
     
 }

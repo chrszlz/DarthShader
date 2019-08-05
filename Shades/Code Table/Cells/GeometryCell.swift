@@ -20,6 +20,7 @@ final class GeometryCell: UITableViewCell {
     
     public lazy var control: UISegmentedControl = {
         let control = UISegmentedControl()
+        control.apportionsSegmentWidthsByContent = true
         control.backgroundColor = .clear
         control.tintColor = .clear
         control.setTitleTextAttributes([

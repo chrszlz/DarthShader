@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReplayKit
 
 public protocol CodeTableDelegate {
     func codeTable(_ table: CodeTableView, didSelect geometry: Geometry)
@@ -39,7 +40,7 @@ open class CodeTableView: UITableViewController {
         let toolbar = InputToolbar()
         toolbar.delegate = self
         return toolbar
-    }()
+}()
     
     public var delegate: CodeTableDelegate?
     
@@ -59,6 +60,7 @@ open class CodeTableView: UITableViewController {
         tableView.dataSource = self
         tableView.register(reusableCell: CodeCell.self)
         tableView.register(reusableCell: GeometryCell.self)
+        tableView.register(reusableCell: SettingCell.self)
         tableView.register(reusableHeaderFooter: SectionHeaderView.self)
         tableView.keyboardDismissMode = .interactive
         tableView.allowsSelection = false
@@ -96,6 +98,11 @@ extension CodeTableView {
             cell.model = geometry
             cell.delegate = self
             return cell
+            
+        case .setting:
+            let cell = tableView.dequeue(reusableCell: SettingCell.self, indexPath: indexPath)
+            return cell
+            
         }
     }
     
@@ -167,6 +174,14 @@ extension CodeTableView: SectionHeaderViewDelegate {
         tableView.beginUpdates()
         tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
         tableView.endUpdates()
+    }
+    
+}
+
+extension CodeTableView: RPPreviewViewControllerDelegate {
+    
+    public func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+        previewController.dismiss(animated: true)
     }
     
 }

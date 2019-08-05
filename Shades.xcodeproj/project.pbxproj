@@ -32,6 +32,9 @@
 		819E51AB221BFCE90012798A /* GLSLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E51AA221BFCE90012798A /* GLSLTheme.swift */; };
 		81AACD2C223B778200F27CCE /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E51A5221BE6F90012798A /* SavannaKit.framework */; };
 		81AACD2D223B778200F27CCE /* SavannaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 819E51A5221BE6F90012798A /* SavannaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81C05461225ADFB700A9EABA /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C05460225ADFB700A9EABA /* SettingCell.swift */; };
+		81C05467225AE4AE00A9EABA /* Photos+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C05466225AE4AE00A9EABA /* Photos+Additions.swift */; };
+		81C05469225B1BAD00A9EABA /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C05468225B1BAD00A9EABA /* Recorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +95,9 @@
 		819E51A5221BE6F90012798A /* SavannaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SavannaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		819E51A8221BF6C10012798A /* GLSLLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLSLLexer.swift; sourceTree = "<group>"; };
 		819E51AA221BFCE90012798A /* GLSLTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLSLTheme.swift; sourceTree = "<group>"; };
+		81C05460225ADFB700A9EABA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		81C05466225AE4AE00A9EABA /* Photos+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photos+Additions.swift"; sourceTree = "<group>"; };
+		81C05468225B1BAD00A9EABA /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,7 @@
 		8144D19022140562008DBF5C /* Shades */ = {
 			isa = PBXGroup;
 			children = (
+				81C0545A225ADF1D00A9EABA /* Recording */,
 				816488BA2223564700E8939E /* Code Table */,
 				8144D19122140562008DBF5C /* AppDelegate.swift */,
 				8144D1A3221405A7008DBF5C /* SceneController.swift */,
@@ -169,12 +176,11 @@
 		816488BA2223564700E8939E /* Code Table */ = {
 			isa = PBXGroup;
 			children = (
-				814D879B221BDCDE00CED7A7 /* CodeCell.swift */,
 				814D8797221BD9F100CED7A7 /* CodeTableView.swift */,
 				81648914222A1E9E00E8939E /* InputToolbar.swift */,
 				8111BC812244C7A50020A1B8 /* Section.swift */,
 				8111BC852244CDA10020A1B8 /* SectionHeaderView.swift */,
-				8166150F224766EE00F3834D /* GeometryCell.swift */,
+				81C0545F225ADFA600A9EABA /* Cells */,
 			);
 			path = "Code Table";
 			sourceTree = "<group>";
@@ -184,6 +190,25 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81C0545A225ADF1D00A9EABA /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				81C05466225AE4AE00A9EABA /* Photos+Additions.swift */,
+				81C05468225B1BAD00A9EABA /* Recorder.swift */,
+			);
+			path = Recording;
+			sourceTree = "<group>";
+		};
+		81C0545F225ADFA600A9EABA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				814D879B221BDCDE00CED7A7 /* CodeCell.swift */,
+				8166150F224766EE00F3834D /* GeometryCell.swift */,
+				81C05460225ADFB700A9EABA /* SettingCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,8 +309,11 @@
 				814D8798221BD9F100CED7A7 /* CodeTableView.swift in Sources */,
 				8144D1A4221405A7008DBF5C /* SceneController.swift in Sources */,
 				814D8794221B987D00CED7A7 /* SceneViewController.swift in Sources */,
+				81C05461225ADFB700A9EABA /* SettingCell.swift in Sources */,
 				8145137D222E83BA00D799DD /* UIKit+Additions.swift in Sources */,
+				81C05469225B1BAD00A9EABA /* Recorder.swift in Sources */,
 				814D879C221BDCDE00CED7A7 /* CodeCell.swift in Sources */,
+				81C05467225AE4AE00A9EABA /* Photos+Additions.swift in Sources */,
 				8111BC862244CDA10020A1B8 /* SectionHeaderView.swift in Sources */,
 				819E51AB221BFCE90012798A /* GLSLTheme.swift in Sources */,
 				819E51A9221BF6C10012798A /* GLSLLexer.swift in Sources */,

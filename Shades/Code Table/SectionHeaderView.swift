@@ -95,6 +95,9 @@ public class SectionHeaderView: UITableViewHeaderFooterView {
         case false:
             arrowLabel.text = "[-]"
         }
+        
+        titleLabel.sizeToFit()
+        arrowLabel.sizeToFit()
     }
     
     @objc private func handleTap(_ recognizer: UITapGestureRecognizer) {

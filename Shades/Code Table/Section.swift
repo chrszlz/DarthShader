@@ -48,6 +48,7 @@ infix operator ~=
 
 public enum Item {
     case geometry(GeometryModel)
+    case setting
     case code(Snippet)
     
     public var isGeometry: Bool {
